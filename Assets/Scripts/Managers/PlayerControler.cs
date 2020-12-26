@@ -12,16 +12,36 @@ public class PlayerControler : MonoBehaviour
         
     }
 
+
+
+    float _yAngle = 0.0f;
+
     void Update()
     {
+        _yAngle += Time.deltaTime * 100.0f;
+
         if (Input.GetKey(KeyCode.W))
-            transform.Translate(Vector3.forward * Time.deltaTime * _speed);
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.forward), 0.1f);
+            transform.position += Vector3.forward * Time.deltaTime * _speed;
+        }
         if (Input.GetKey(KeyCode.S))
-            transform.Translate(Vector3.back * Time.deltaTime * _speed);
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.back), 0.1f);
+            transform.position += Vector3.back * Time.deltaTime * _speed;
+        }
+
         if (Input.GetKey(KeyCode.D))
-            transform.Translate(Vector3.right * Time.deltaTime * _speed);
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right), 0.1f);
+            transform.position += Vector3.right * Time.deltaTime * _speed;
+        }
+
         if (Input.GetKey(KeyCode.A))
-            transform.Translate(Vector3.left * Time.deltaTime * _speed);
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.left), 0.1f);
+            transform.position += Vector3.left * Time.deltaTime * _speed;
+        }
 
     }
 }
