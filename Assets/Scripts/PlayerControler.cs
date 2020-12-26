@@ -14,11 +14,10 @@ public class PlayerControler : MonoBehaviour
 
 
 
-    float _yAngle = 0.0f;
+
 
     void Update()
     {
-        _yAngle += Time.deltaTime * 100.0f;
 
         if (Input.GetKey(KeyCode.W))
         {
