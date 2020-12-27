@@ -22,7 +22,7 @@ public class TestCollision : MonoBehaviour
 
     void Update()
     {
-
+        /*
         Vector3 look = transform.TransformDirection(Vector3.forward);
 
         Debug.DrawRay(transform.position + Vector3.up, look * 10, Color.red);
@@ -34,6 +34,20 @@ public class TestCollision : MonoBehaviour
         foreach (RaycastHit hit in hits)
         {
             Debug.Log($"Raycast {hit.collider.gameObject.name}!");
+        }
+        */
+        if(Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+            Debug.DrawRay(Camera.main.transform.position, ray.direction * 100.0f, Color.red, 1.0f);
+
+            RaycastHit hit;
+            if(Physics.Raycast(ray, out hit, 100.0f))
+            {
+                Debug.Log($"Raycast Camera @ {hit.collider.gameObject.name}");
+
+            }
         }
 
     }
