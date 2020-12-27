@@ -9,7 +9,9 @@ public class PlayerControler : MonoBehaviour
 
     void Start()
     {
-        
+        Manager.input.KeyAction -= OnKeyBoard;
+        Manager.input.KeyAction += OnKeyBoard;
+
     }
 
 
@@ -17,6 +19,12 @@ public class PlayerControler : MonoBehaviour
 
 
     void Update()
+    {
+
+
+    }
+
+    void OnKeyBoard()
     {
 
         if (Input.GetKey(KeyCode.W))
@@ -41,6 +49,6 @@ public class PlayerControler : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.left), 0.1f);
             transform.position += Vector3.left * Time.deltaTime * _speed;
         }
-
     }
+
 }

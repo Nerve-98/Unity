@@ -5,10 +5,17 @@ using UnityEngine;
 
 public class InputManager
 {
-    public Action 
+    public Action KeyAction = null;
 
-    void Update()
+    public void OnUpdate()
     {
-        
+        if (Input.anyKey == false)
+            return;
+
+        if (KeyAction != null)
+            KeyAction.Invoke();
+
+
+
     }
 }
