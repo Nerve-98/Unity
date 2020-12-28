@@ -7,14 +7,14 @@ public class PlayerControler : MonoBehaviour
     [SerializeField]
     float _speed = 10.0f;
 
-    bool _moveToDest = false;
+    // bool _moveToDest = false;
     Vector3 _destPos;
 
 
     void Start()
     {
-        Manager.input.KeyAction -= OnKeyBoard;
-        Manager.input.KeyAction += OnKeyBoard;
+        //Manager.input.KeyAction -= OnKeyBoard;
+        //Manager.input.KeyAction += OnKeyBoard;
         Manager.input.MouseAction -= OnMouseClicked;
         Manager.input.MouseAction += OnMouseClicked;
 
@@ -24,8 +24,52 @@ public class PlayerControler : MonoBehaviour
 
 
 
+    float wait_run_ratio = 0;
+    public enum PlayerState
+    {
+        Die,
+        Moving,
+        Idle
+    }
+
+    PlayerState _state = PlayerState.Idle;
+
+    void UpdateDie()
+    {
+
+    }
+
+    void UpdateMoving()
+    {
+        Vector3 dir = _destPos - transform.position;
+        if (dir.magnitude < 0.01f)
+        {
+            //_moveToDest = false;
+            _state = PlayerState.Idle;
+        }
+        else
+        {
+            float moveDist = Mathf.Clamp(_speed * Time.deltaTime, 0, dir.magnitude);
+            transform.position += dir.normalized * moveDist;
+
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), 10 * Time.deltaTime);
+        }
+
+        // animation
+        Animator anim = GetComponent<Animator>();
+        anim.SetFloat("speed", _speed);
+    }
+
+    void UpdateIdle()
+    {
+
+        Animator anim = GetComponent<Animator>();
+        anim.SetFloat("speed", 0);
+    }
+
     void Update()
     {
+        /*
         if(_moveToDest)
         {
             Vector3 dir = _destPos - transform.position;
@@ -41,11 +85,45 @@ public class PlayerControler : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), 10 * Time.deltaTime);
             }
         }
+        */
 
+
+        switch (_state)
+        {
+            case PlayerState.Die:
+                UpdateDie();
+                break;
+            case PlayerState.Moving:
+                UpdateMoving();
+                break;
+            case PlayerState.Idle:
+                UpdateIdle();
+                break;
+        }
+
+        /*
+        if(_moveToDest)
+        {
+            wait_run_ratio = Mathf.Lerp(wait_run_ratio, 1, 10.0f * Time.deltaTime);
+            Animator anim = GetComponent<Animator>();
+            anim.SetFloat("wait_run_ratio", wait_run_ratio);
+
+            anim.Play("WAIT_RUN");
+
+        }
+        else
+        {
+            wait_run_ratio = Mathf.Lerp(wait_run_ratio, 0, 10.0f * Time.deltaTime);
+            Animator anim = GetComponent<Animator>();
+            anim.SetFloat("wait_run_ratio", wait_run_ratio);
+            anim.Play("WAIT_RUN");
+
+        }
+        */
 
 
     }
-
+    /*
     void OnKeyBoard()
     {
 
@@ -74,14 +152,11 @@ public class PlayerControler : MonoBehaviour
         _moveToDest = false;
 
     }
-
+    */
     void OnMouseClicked(Define.MouseEvent evt)
     {
-        if (evt != Define.MouseEvent.Click)
+        if (_state == PlayerState.Die)
             return;
-
-        Debug.Log("OnMouseClicked");
-
 
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Debug.DrawRay(Camera.main.transform.position, ray.direction * 100.0f, Color.red, 1.0f);
@@ -95,7 +170,7 @@ public class PlayerControler : MonoBehaviour
         if(Physics.Raycast(ray, out hit, 100.0f, mask))
         {
             _destPos = hit.point;
-            _moveToDest = true;
+            _state = PlayerState.Moving;
             //Debug.Log($"Raycast Camera @ {hit.collider.gameObject.tag}");
 
         }
