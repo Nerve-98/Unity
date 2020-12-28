@@ -24,7 +24,6 @@ public class PlayerControler : MonoBehaviour
 
 
 
-    float wait_run_ratio = 0;
     public enum PlayerState
     {
         Die,
