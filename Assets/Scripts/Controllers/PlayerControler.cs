@@ -29,7 +29,7 @@ public class PlayerControler : MonoBehaviour
         if(_moveToDest)
         {
             Vector3 dir = _destPos - transform.position;
-            if(dir.magnitude < 0.0001f)
+            if(dir.magnitude < 0.01f)
             {
                 _moveToDest = false;
             }
@@ -37,7 +37,8 @@ public class PlayerControler : MonoBehaviour
             {
                 float moveDist = Mathf.Clamp(_speed * Time.deltaTime, 0, dir.magnitude);
                 transform.position += dir.normalized * moveDist;
-                transform.LookAt(_destPos);
+
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), 10 * Time.deltaTime);
             }
         }
 
@@ -74,7 +75,7 @@ public class PlayerControler : MonoBehaviour
 
     }
 
-    private void OnMouseClicked(Define.MouseEvent evt)
+    void OnMouseClicked(Define.MouseEvent evt)
     {
         if (evt != Define.MouseEvent.Click)
             return;
