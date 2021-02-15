@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerControler : MonoBehaviour
 {
     [SerializeField]
-    float _speed = 10.0f;
+    private float _speed = 10.0f;
 
     // bool _moveToDest = false;
     Vector3 _destPos;
@@ -79,6 +79,81 @@ public class PlayerControler : MonoBehaviour
 
     void Update()
     {
+        /* Transform, Playersetting, Position
+        if (Input.GetKey(KeyCode.W))
+            transform.position += new Vector3(0.0f, 0.0f, 1.0f);
+        if (Input.GetKey(KeyCode.S))
+            transform.position -= new Vector3(0.0f, 0.0f, 1.0f);
+        if (Input.GetKey(KeyCode.D))
+            transform.position += new Vector3(1.0f, 0.0f, 0.0f);
+        if (Input.GetKey(KeyCode.A))
+            transform.position -= new Vector3(1.0f, 0.0f, 0.0f);
+
+        //
+
+        if (Input.GetKey(KeyCode.W))
+            transform.position += Vector3.forward * Time.deltaTime * _speed;
+        if (Input.GetKey(KeyCode.S))
+            transform.position += Vector3.back * Time.deltaTime * _speed;
+        if (Input.GetKey(KeyCode.D))
+            transform.position += Vector3.right * Time.deltaTime * _speed;
+        if (Input.GetKey(KeyCode.A))
+            transform.position += Vector3.left * Time.deltaTime * _speed;
+        
+
+        // Local->World
+        // transform.TransformDirection
+
+        // World->Local
+        // transform.InverseTransformDirection
+        if (Input.GetKey(KeyCode.W))
+            transform.position += transform.TransformDirection(Vector3.forward * Time.deltaTime * _speed);
+        if (Input.GetKey(KeyCode.S))
+            transform.position += transform.TransformDirection(Vector3.back * Time.deltaTime * _speed);
+        if (Input.GetKey(KeyCode.D))
+            transform.position += transform.TransformDirection(Vector3.right * Time.deltaTime * _speed);
+        if (Input.GetKey(KeyCode.A))
+            transform.position += transform.TransformDirection(Vector3.left * Time.deltaTime * _speed);
+
+
+        // Translate
+
+        if (Input.GetKey(KeyCode.W))
+            transform.Translate(Vector3.forward * Time.deltaTime * _speed);
+        if (Input.GetKey(KeyCode.S))
+            transform.Translate(Vector3.back * Time.deltaTime * _speed);
+        if (Input.GetKey(KeyCode.D))
+            transform.Translate(Vector3.right * Time.deltaTime * _speed);
+        if (Input.GetKey(KeyCode.A))
+            transform.Translate(Vector3.left * Time.deltaTime * _speed);
+        
+        // Rotation
+
+        if (Input.GetKey(KeyCode.W))
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.forward), 0.2f);
+            transform.position += Vector3.forward * Time.deltaTime * _speed;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.back), 0.2f);
+            transform.position += Vector3.back * Time.deltaTime * _speed;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.right), 0.2f);
+            transform.position += Vector3.right * Time.deltaTime * _speed;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Vector3.left), 0.2f);
+            transform.position += Vector3.left * Time.deltaTime * _speed;
+        }
+        
+        */
+
+
+
         /*
         if(_moveToDest)
         {

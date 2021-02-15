@@ -15,6 +15,12 @@ public class InputManager
 
     public void OnUpdate()
     {
+        /* Input Manager
+        if (Input.anyKey == false)
+            return;
+        if (KeyAction != null)
+            KeyAction.Invoke();
+        */
 
         if (EventSystem.current.IsPointerOverGameObject())
             return;

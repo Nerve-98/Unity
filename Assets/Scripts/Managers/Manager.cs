@@ -5,15 +5,15 @@ using UnityEngine;
 public class Manager : MonoBehaviour
 {
     static Manager s_instance;
-    static Manager instance { get { init(); return s_instance; } }
+    static Manager Instance { get { init(); return s_instance; } }
 
     InputManager _input = new InputManager();
     ResourceManager _resource = new ResourceManager();
     UIManager _ui = new UIManager();
 
-    public static InputManager input { get { return instance._input; } }
-    public static ResourceManager Resource { get { return instance._resource; } }
-    public static UIManager UI { get { return instance._ui; } }
+    public static InputManager input { get { return Instance._input; } }
+    public static ResourceManager Resource { get { return Instance._resource; } }
+    public static UIManager UI { get { return Instance._ui; } }
 
 
 
@@ -36,7 +36,7 @@ public class Manager : MonoBehaviour
             GameObject go = GameObject.Find("@Manager");
             if(go == null)
             {
-                go = new GameObject { name = "Manager" };
+                go = new GameObject { name = "@Manager" };
                 go.AddComponent<Manager>();
             }
             DontDestroyOnLoad(go);
